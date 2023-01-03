@@ -7,11 +7,11 @@ async function dropTables() {
   console.log("Dropping All Tables...")
   // drop all tables, in the correct order
   console.log("Starting to drop tables...");
-  // try {
-  //   await client.query(`
-  //   DROP TABLE IF EXISTS mytablename;
-  //   `);
-  // }
+  try {
+    await client.query(`
+    DROP TABLE IF EXISTS mytablename;
+    `);
+  }
 }
 
 async function createTables() {
