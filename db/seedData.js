@@ -13,7 +13,7 @@ async function dropTables() {
     `);
   }
 }
-
+//test
 async function createTables() {
   console.log("Starting to build tables...")
   // create all tables, in the correct order
