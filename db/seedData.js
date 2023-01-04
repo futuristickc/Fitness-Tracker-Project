@@ -2,6 +2,9 @@
 // const { } = require('./');
 const client = require("./client")
 const { createUser } = require("./users")
+const { createActivity } = require("./activities")
+const { createRoutine } = require("./routines")
+const { getRoutinesWithoutActivities } = require("./routines")
 
 async function dropTables() {
   console.log("Dropping All Tables...")
@@ -156,11 +159,12 @@ async function createInitialRoutines() {
 }
 
 async function createInitialRoutineActivities() {
-  console.log("starting to create routine_activities...")
+  console.log("starting to create routine_activities...");
   const [bicepRoutine, chestRoutine, legRoutine, cardioRoutine] =
-    await getRoutinesWithoutActivities()
+    await getRoutinesWithoutActivities();
+  console.log("routines w/o activities: ", getRoutinesWithoutActivities)
   const [bicep1, bicep2, chest1, chest2, leg1, leg2, leg3] =
-    await getAllActivities()
+    await getAllActivities();
 
   const routineActivitiesToCreate = [
     {
@@ -217,13 +221,13 @@ async function createInitialRoutineActivities() {
       count: 10,
       duration: 15,
     },
-  ]
+  ];
   const routineActivities = await Promise.all(
     routineActivitiesToCreate.map(addActivityToRoutine)
-  )
+  );
   console.log("routine_activities created: ", routineActivities)
   console.log("Finished creating routine_activities!")
-}
+};
 
 async function rebuildDB() {
   try {
@@ -243,4 +247,5 @@ module.exports = {
   rebuildDB,
   dropTables,
   createTables,
+  createInitialUsers,
 }
