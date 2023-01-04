@@ -9,14 +9,54 @@ async function dropTables() {
   console.log("Starting to drop tables...");
   try {
     await client.query(`
-    DROP TABLE IF EXISTS mytablename;
-    `);
+    DROP TABLE IF EXISTS routine_activities;
+    DROP TABLE IF EXISTS routines;
+    DROP TABLE IF EXISTS activities;
+    DROP TABLE IF EXISTS users;
+     `);
+  } catch (error) {
+    throw error;
   }
 }
 //test
 async function createTables() {
   console.log("Starting to build tables...")
   // create all tables, in the correct order
+  try {
+    await client.query(`
+    CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+    );
+
+    CREATE TABLE activities (
+      id SERIAL PRIMARY KEY,
+      name varchar(255) UNIQUE NOT NULL,
+      description TEXT NOT NULL
+    );
+
+    CREATE TABLE routines (
+      id SERIAL PRIMARY KEY,
+      "creatorId" INTEGER REFERENCES users(id),
+      "isPublic" BOOLEAN DEFAULT false,
+      name VARCHAR(255) UNIQUE NOT NULL,
+      goal TEXT NOT NULL
+    );
+
+    CREATE TABLE routine_activities (
+      id SERIAL PRIMARY KEY,
+      "routineId" INTEGER REFERENCES routines (id),
+      "activityId" INTEGER REFERENCES activities (id),
+      duration INTEGER,
+      count INTEGER,
+      UNIQUE ("routineId", "activityId")
+      )
+    `);
+  } catch (error) {
+    console.error("Error building tables!");
+    throw error;
+  }
 }
 
 /* 
@@ -32,7 +72,8 @@ async function createInitialUsers() {
       { username: "albert", password: "bertie99" },
       { username: "sandra", password: "sandra123" },
       { username: "glamgal", password: "glamgal123" },
-    ]
+    ];
+    console.log('before awaiting users to create: ', usersToCreate);
     const users = await Promise.all(usersToCreate.map(createUser))
 
     console.log("Users created:")
