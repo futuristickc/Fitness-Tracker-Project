@@ -23,17 +23,23 @@ const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 }
 
 async function getUser({ username, password }) {
-  const user = await getUserByUsername(username);
-const hashedPassword = user.password;
-const passwordsMatch = await bcrypt.compare(password, hashedPassword);
-if (passwordsMatch) {
-  return { username };
+  await client.query(`
+  SELECT id, username, password
+  FROM user
+  `)
+    const user = await getUserByUsername(username);
+    const passwordsMatch = await bcrypt.compare(password, user.password);
+
+  if (passwordsMatch) {
   // return the user object (without the password)
+  delete user.password;
+  return user;
 } else {
-  throw error;
+  throw SomeError;
+}
+  
 }
 
-}
 
 async function getUserById(userId) {
 try {
@@ -55,10 +61,10 @@ async function getUserByUsername(userName) {
     } = await client.query(
       `
       SELECT *
-      FROM users
+      FROM user
       WHERE username=;
     `,
-      [username]
+      [userName]
     );
 
     return user;
