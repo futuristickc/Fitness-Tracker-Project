@@ -13,7 +13,7 @@ const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
     INSERT INTO users(username, password)
     VALUES ($1, $2)
     ON CONFLICT (username) DO NOTHING
-    RETURNING *;
+    RETURNING username;
     `, [username, password]);
     
     return user;
@@ -23,21 +23,25 @@ const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 }
 
 async function getUser({ username, password }) {
-  await client.query(`
-  SELECT id, username, password
-  FROM user
-  `)
-    const user = await getUserByUsername(username);
-    const passwordsMatch = await bcrypt.compare(password, user.password);
+//   const user = await getUserByUsername(username);
+//   const passwordsMatch = await bcrypt.compare(password, user.password);
 
-  if (passwordsMatch) {
-  // return the user object (without the password)
-  delete user.password;
-  return user;
-} else {
-  throw SomeError;
-}
-  
+// if (passwordsMatch) {
+// // return the user object (without the password)
+// delete user.password;
+// } else {
+// throw 'SomeError';
+// }
+
+ try {
+  const {rows:user} = await client.query(`
+  SELECT id, username, password
+  FROM users
+  `)
+return user;
+ } catch (error) {
+  console.log(error)
+ }
 }
 
 
@@ -45,9 +49,11 @@ async function getUserById(userId) {
 try {
   const { rows: [user] } = await client.query(`
   SELECT id, username, name, location
-  FROM users
+  FROM user
   WHERE "id" = ${userId}
   `);
+
+  delete user.password;
 return user;
 } catch (error) {
   throw error;
@@ -57,12 +63,11 @@ return user;
 async function getUserByUsername(userName) {
   try {
     const {
-      rows: [user],
-    } = await client.query(
+      rows: [user] } = await client.query(
       `
       SELECT *
-      FROM user
-      WHERE username=;
+      FROM users
+      WHERE username=$1
     `,
       [userName]
     );

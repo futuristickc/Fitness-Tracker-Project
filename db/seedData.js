@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 // require in the database adapter functions as you write them (createUser, createActivity...)
 // const { } = require('./');
 const client = require("./client")
@@ -17,6 +18,7 @@ async function dropTables() {
     DROP TABLE IF EXISTS activities;
     DROP TABLE IF EXISTS users;
      `);
+     
   } catch (error) {
     throw error;
   }
@@ -78,6 +80,8 @@ async function createInitialUsers() {
     ];
     const users = await Promise.all(usersToCreate.map(createUser))
 
+    console.log('Users created');
+    console.log(users);
     console.log("Finished creating users!")
   } catch (error) {
     console.error("Error creating users!")
