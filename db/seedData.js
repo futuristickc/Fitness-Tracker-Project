@@ -3,8 +3,8 @@
 const client = require("./client")
 const { createUser } = require("./users")
 const { createActivity } = require("./activities")
-const { createRoutine } = require("./routines")
-const { getRoutinesWithoutActivities } = require("./routines")
+// const { createRoutine } = require("./routines")
+// const { getRoutinesWithoutActivities } = require("./routines")
 
 async function dropTables() {
   console.log("Dropping All Tables...")
@@ -76,11 +76,8 @@ async function createInitialUsers() {
       { username: "sandra", password: "sandra123" },
       { username: "glamgal", password: "glamgal123" },
     ];
-    console.log('before awaiting users to create: ', usersToCreate);
     const users = await Promise.all(usersToCreate.map(createUser))
 
-    console.log("Users created:")
-    console.log(users)
     console.log("Finished creating users!")
   } catch (error) {
     console.error("Error creating users!")
@@ -162,7 +159,7 @@ async function createInitialRoutineActivities() {
   console.log("starting to create routine_activities...");
   const [bicepRoutine, chestRoutine, legRoutine, cardioRoutine] =
     await getRoutinesWithoutActivities();
-  console.log("routines w/o activities: ", getRoutinesWithoutActivities)
+  // console.log("routines w/o activities: ", getRoutinesWithoutActivities)
   const [bicep1, bicep2, chest1, chest2, leg1, leg2, leg3] =
     await getAllActivities();
 
@@ -225,7 +222,7 @@ async function createInitialRoutineActivities() {
   const routineActivities = await Promise.all(
     routineActivitiesToCreate.map(addActivityToRoutine)
   );
-  console.log("routine_activities created: ", routineActivities)
+  // console.log("routine_activities created: ", routineActivities)
   console.log("Finished creating routine_activities!")
 };
 
