@@ -1,8 +1,17 @@
+/* eslint-disable no-useless-catch */
 const express = require('express');
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+const { getUserById } = require("../db");
+const { JWT_SECRET } = process.env;
 
 // GET /api/health
 router.get('/health', async (req, res, next) => {
+    try {
+        res.send({ message: "server is healthy" });
+      } catch (error) {
+        throw error;
+      }
 });
 
 // ROUTER: /api/users
