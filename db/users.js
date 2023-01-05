@@ -1,3 +1,4 @@
+const id = require("faker/lib/locales/id_ID");
 const client = require("./client");
 
 // database functions
@@ -19,19 +20,26 @@ async function createUser({ username, password }) {
 
 async function getUser({ username, password }) {
   try {
-    const { rows: [user] } = await client.query(`
-  SELECT username FROM users
-  `,);
-    return user;
+    const user = await getUserByUsername(username)
+    if (password == user.password) {
+      const { rows: [user] } = await client.query(`
+  SELECT username, id
+  FROM users
+  WHERE username= $1 AND password = $2
+  `, [username, password])
+      return user
+    }
   } catch (error) {
     throw error;
   }
 }
 
+
+
 async function getUserById(userId) {
   try {
     const { rows: [user] } = await client.query(`
-  SELECT id FROM users
+  SELECT * FROM users
   `,);
     // user.id = await getUser(username, password);
     return user;

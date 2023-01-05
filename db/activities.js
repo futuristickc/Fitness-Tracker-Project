@@ -48,27 +48,39 @@ async function updateActivity({ id, ...fields }) {
   // don't try to update the id
   // do update the name and description
   // return the updated activity
-  const keys = Object.keys(fields);
-  const setString = keys.map(
-    (key, index) => `"${key}"=$${index + 1}`)
-    .join(', ');
+  // const keys = Object.keys(fields);
+  // const setString = keys.map(
+  //   (key, index) => `"${key}"=$${index + 1}`)
+  //   .join(', ');
 
-  if (setString.length === 0) {
-    return;
-  }
+  // if (setString.length === 0) {
+  //   return;
+  // }
 
   try {
-    const { rows: [newActivity] } = await client.query(`
-    UPDATE name, description 
-    SET ${setString}
-    WHERE username, password = $1, $2
-    RETURNING *
-    `, Object.values(fields));
-    return newActivity;
-  } catch (error) {
+    if (fields.name)
+      await client.query(`UPDATE activities
+       SET name = '${fields.name}'
+        WHERE id = ${id}
+        `);
+
+    if (fields.description)
+      await client.query(`UPDATE activities
+       SET description = '${fields.description}'
+        WHERE id = ${id}
+        `);
+
+    const activity = await getActivityById(id);
+
+    // console.log(activity);
+
+    return activity;
+  }
+  catch (error) {
     throw error;
   }
 }
+
 
 module.exports = {
   getAllActivities,
