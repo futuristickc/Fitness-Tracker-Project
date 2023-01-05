@@ -103,16 +103,6 @@ async function canEditRoutineActivity(routineActivityId, userId) {
   } catch (error) {
     throw error;
   }
-
-
-
-  // const routineActivity = await getRoutineActivityById(routineActivityId);
-  // const routine = await getRoutineById(routineActivity.routineId);
-
-  // if (routine.id === userId)
-  //   return true;
-
-  // return false;
 }
 
 
