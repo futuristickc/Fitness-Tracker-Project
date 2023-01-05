@@ -63,7 +63,7 @@ async function getAllRoutines() {
       routine.activities = activitiesToAdd
     }
 
-    console.log('my routines:::::: ', routines);
+    // console.log('my routines:::::: ', routines);
     return routines;
   } catch (error) {
     throw error;
