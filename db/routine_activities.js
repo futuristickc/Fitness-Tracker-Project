@@ -12,7 +12,8 @@ async function addActivityToRoutine({
     const { rows: [newActivity] } = await client.query(`
     INSERT INTO routine_activities ("routineId", "activityId", count, duration)
     VALUES ($1, $2, $3, $4)
-    RETURNING *
+    ON CONFLICT ("routineId", "activityId") DO NOTHING
+    RETURNING *;
     `, [routineId, activityId, count, duration]);
     return newActivity;
   } catch (error) {
@@ -73,23 +74,45 @@ async function updateRoutineActivity({ id, ...fields }) {
  
 
 async function destroyRoutineActivity(id) { 
-  const { rows:[routineActivities]} = await client.query(`
-  DELETE FROM routineActivities
-  WHERE routineActivities."routineId"=${routineId}
-  RETURNING *
+  try {
+    const { rows:[routineActivity]} = await client.query(`
+  DELETE FROM routine_activities
+  WHERE id =${id}
+  RETURNING *;
   `)
 
-  return routineActivities
+  return routineActivity
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function canEditRoutineActivity(routineActivityId, userId) { 
-  const routineActivity = await getRoutineActivityById(routineActivityId);
-  const routine = await getRoutineById(routineActivity.routineId);
-
-  if (routine.id === userId)
+  try {
+    const { rows: [editableRoutineActivity],} = await client.query(
+      `
+      SELECT routine_activities.*
+      FROM routine_activities
+      JOIN routines ON routines.id = routine_activities."routineId"
+      WHERE routines."creatorId" = $1 AND routine_activities.id = $2
+      `, [userId, routineActivityId]
+    );
+    if (routineActivityId === userId)
     return true;
+    return editableRoutineActivity;
+  } catch (error) {
+    throw error;
+  }
 
-  return false;
+
+
+  // const routineActivity = await getRoutineActivityById(routineActivityId);
+  // const routine = await getRoutineById(routineActivity.routineId);
+
+  // if (routine.id === userId)
+  //   return true;
+
+  // return false;
 }
 
 

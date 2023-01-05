@@ -210,13 +210,13 @@ describe("DB Routines", () => {
       expectRoutinesNotToContainDuplicates(routines, fakeRoutine);
     });
 
-    xit("includes username, from users join, aliased as creatorName", async () => {
+    it("includes username, from users join, aliased as creatorName", async () => {
       const routines = await getAllPublicRoutines();
       const routine = routines.find((routine) => routine.id === fakeRoutine.id);
       expect(routine.creatorName).toEqual(fakeUser.username);
     });
 
-    xit("includes duration and count on activities, from routine_activities join", async () => {
+    it("includes duration and count on activities, from routine_activities join", async () => {
       const routines = await getAllPublicRoutines();
       const routine = routines.find((routine) => routine.id === fakeRoutine.id);
       const activity = routine.activities.find(
