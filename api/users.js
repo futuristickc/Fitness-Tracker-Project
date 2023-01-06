@@ -2,6 +2,7 @@
 const express = require("express");
 const usersRouter = express.Router();
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const { JWT_SECRET } = process.env;
 const { requireUser } = require("./utils");
 const {
@@ -95,7 +96,36 @@ usersRouter.post("/login", async (req, res, next) => {
 });
 
 // GET /api/users/me
+usersRouter.get("/me", requireUser, async (req,res, next ) => {
+  try {
+    res.send(req.user);
+  } catch (error) {
+    next(error);
+  }
+})
 
 // GET /api/users/:username/routines
+usersRouter.get("/:username/routines", async (req, res, next) => {
+  const { username } = req.params;
+  try {
+    const user = await getUserByUsername(username);
+    if(!user){
+      next({
+        name: "No user found",
+        message: "Cannot Find User",
+      });
+    }else if (req.user && req.user.id === user.id){
+      const userRoutines = await getAllRoutinesByUser(user);
+      res.send(userRoutines);
+    } else {
+      const publicRoutines = await getPublicRoutinesByUser(user);
+      res.send(publicRoutines)
+    }
+
+  
+  } catch ({name, message}) {
+    next({name, message})
+  }
+})
 
 module.exports = usersRouter;
