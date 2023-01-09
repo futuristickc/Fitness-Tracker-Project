@@ -41,13 +41,13 @@ router.use(async (req, res, next) => {
   }
 });
 
-router.use((req, res, next) => {
-  if (req.user) {
-    console.log(req.user);
-  }
+// router.use((req, res, next) => {
+//   if (req.user) {
+//     console.log(req.user);
+//   }
 
-  next();
-});
+//   next();
+// });
 
 // ROUTER: /api/users
 const usersRouter = require('./users');

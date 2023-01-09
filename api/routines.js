@@ -50,12 +50,12 @@ router.patch("/:routineId", requireUser, async (req, res, next) => {
     const id = req.params.routineId;
     const originalRoutine = await getRoutineById(routineId);
     if (originalRoutine.creatorId !== req.user.id) {
+      res.status(403).send;
       next({
         message: `User ${req.user.username} is not allowed to update ${originalRoutine.name}`,
         name: "UnauthorizedUpdateError",
         error: "UpdateError",
       });
-      res.status(403).send;
     } else {
       const updatedRoutine = await updateRoutine({
         id,
@@ -77,8 +77,7 @@ router.delete("/:routineId", requireUser, async (req, res, next) => {
   const id = req.params.routineId;
   try {
     const routineToDelete = await getRoutineById(id);
-    // console.log("this is req.params.routineId", req.params.routineId);
-    //  console.log("this is routineTODelete", routineToDelete);
+   
     // const findRoutines = await getRoutineById(id);
     if (routineToDelete && routineToDelete.creatorId === req.user.id) {
       const deletedRoutine = await destroyRoutine(id);
