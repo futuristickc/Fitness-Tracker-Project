@@ -1,6 +1,7 @@
-import { verify } from "jsonwebtoken";
+
 
 const APIURL = `https://fitnesstrac-kr.herokuapp.com/api`;
+const token = localStorage.token;
 
 
 
@@ -121,6 +122,7 @@ export const fetchRoutines = async () => {
 export const Logout = () => {
   localStorage.clear();
 };
+<<<<<<< HEAD
 =======
     return data;  
     } catch (error) {
@@ -133,3 +135,134 @@ export const Logout = () => {
     localStorage.clear();
   };
 >>>>>>> 9ce23a7 (FrontEnd work)
+=======
+
+export async function getActivities() {
+  try{
+    const response = await fetch(`${API_URL}/activities`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const activities = await response.json();
+    return activities;
+}catch (error) {
+  throw error
+}}
+
+export async function addActivity(
+  token,
+  nameInput,
+  descriptionInput
+) 
+{
+  try {
+    const response = await fetch(`${API_URL}/activities/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: nameInput,
+        description: descriptionInput,
+      }),
+    });
+    const result = await response.json();
+    return result
+  } catch (error) {
+    throw error
+  }
+
+}
+
+export async function updateActivity(
+  nameInput,
+  descriptionInput,
+  activityId
+) {
+  try{
+  const response = await fetch(`${API_URL}/activities/${activityId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: nameInput,
+      description: descriptionInput,
+    }),
+  });
+  const result = await response.json();
+  return result
+}catch (error) {
+  throw error
+}}
+
+
+export async function addRoutineActivity(
+  activityId,
+  countInput,
+  durationInput,
+  routineId
+) {
+  try{
+  const response = await fetch(`${API_URL}/routines/${routineId}/activities`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      activityId: activityId,
+      count: countInput,
+      duration: durationInput
+
+    }),
+  });
+  const result = await response.json();
+  return result
+}catch (error) {
+  throw error
+}}
+
+export async function updateRoutineActivity(
+  countInput,
+  durationInput,
+  rAId
+) {
+  try{
+  const token = localStorage.getItem("token");
+  const response = await fetch(`${API_URL}/routine_activities/${rAId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      count: countInput,
+      duration: durationInput
+    }),
+  });
+  const result = await response.json();
+  return result
+}catch (error) {
+  throw error
+}}
+
+export async function deleteRoutineActivity(
+  rAId
+) {
+  try{
+  const token = localStorage.getItem("token");
+  const response = await fetch(`${API_URL}/routine_activities/${rAId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  return result
+}catch (error) {
+  throw error
+}}
+>>>>>>> df8aa2a (34?!?!)
