@@ -82,9 +82,6 @@ export const fetchRoutines = async () => {
 
 export const Logout = () => {
   localStorage.clear();
-};
-<<<<<<< HEAD
-=======
     return data;
     } catch (error) {
         console.error(error)
