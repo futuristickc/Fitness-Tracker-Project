@@ -85,6 +85,9 @@ export const Logout = () => {
 };
 
 
+
+
+
 export async function getActivities() {
   try {
     const response = await fetch(`${API_URL}/activities`, {
