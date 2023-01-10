@@ -82,16 +82,16 @@ export const fetchRoutines = async () => {
 
 export const Logout = () => {
   localStorage.clear();
-    return data;
-    } catch (error) {
-        console.error(error)
-    }
+  return data;
+} catch (error) {
+  console.error(error)
 }
+};
 
 
 export const Logout = () => {
-    localStorage.clear();
-  };
+  localStorage.clear();
+};
 >>>>>>> 9ce23a7 (FrontEnd work)
 =======
 
