@@ -7,7 +7,8 @@
     "seed:dev": "nodemon ./db/seed.js",
     "seed": "node ./db/seed.js",
     "start:dev": "nodemon server.js",
-    "start": "node server.js",
+    "start": "vite",
+    "build": "vite build",
     "test": "jest --runInBand",
     "test:watch": "jest --runInBand --watchAll"
   },
@@ -29,10 +30,12 @@
   },
   "homepage": "https://github.com/wallacepreston/fitnesstrackr#readme",
   "devDependencies": {
+    "@vitejs/plugin-react-refresh": "^1.3.6",
     "eslint": "^8.2.0",
     "eslint-plugin-jest": "^25.2.4",
     "nodemon": "^2.0.4",
-    "supertest": "^6.1.6"
+    "supertest": "^6.1.6",
+    "vite": "^4.0.4"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -48,6 +51,6 @@
     "pg": "^8.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1"
+    "react-router-dom": "^6.6.2"
   }
 }
