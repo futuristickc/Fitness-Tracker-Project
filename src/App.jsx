@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Navbar from "./components/NavBar";
 import AllRoutes from "./components/Routes";
 import { getMe } from "./api";
+import Register from "./components/User/Register";
 
 
 
@@ -13,24 +14,24 @@ function App() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    if (Object.keys(user).length === 0) {
-      const fetchMe = async () => {
-        const data = await getMe();
-        const user = await response;
-        setUser(user);
-      }
-      fetchMe()
-
+    //   if (Object.keys(user).length === 0) {
+    const fetchMe = async () => {
+      const data = await getMe(token);
+      console.log(data);
+      //       const user = await response;
+      setUser(data);
+      console.log(user);
     }
-  }, [user])
+    fetchMe();
 
 
+  }, [token])
 
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      <h1>Fitness Tracker</h1>
       <Navbar />
-      <AllRoutes />
+      <Register />
     </div>
   );
 }

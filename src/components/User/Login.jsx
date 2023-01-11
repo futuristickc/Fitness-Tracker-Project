@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { loginUser } from "../../api";
 import { useLocation } from "react-router-dom";
 
 

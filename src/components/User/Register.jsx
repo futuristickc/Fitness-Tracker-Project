@@ -1,5 +1,47 @@
-// import React, {useState, useEffect} from "react";
-// import { registerUser } from "../../api";
+import React, {useState, useEffect} from "react";
+import { registerUser } from "../../api/index";
+
+
+const Register = () => {
+
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+
+    return (
+    <div>
+        <form onSubmit={async (e) => {
+            try {
+                e.preventDefault();
+            console.log("username & password: ", username, password)
+
+            const data = await registerUser(username, password)
+            localStorage.setItem("data", data)
+            console.log("localStorage", localStorage.getItem(data));    /////THIS PART TIES TO THE TOKEN QUESTION FROM REGISTER USER COMPONENT in index.js///
+        } catch (error) {
+                console.error(error);
+            }
+        }}>
+            <label htmlFor="username">Username:</label>
+            <input 
+            value={username} 
+            type="text" 
+            placeholder="username" 
+            onChange={(e) => setUsername(e.target.value)}
+            ></input>
+            <label htmlFor="password">Password:</label>
+            <input 
+            value={password} 
+            type="password" 
+            placeholder="password"
+            onChange={(e) => setPassword(e.target.value)}
+            ></input>
+            <button type="Submit">Submit</button>
+        </form>
+    </div>
+    )
+}
+
+export default Register;
 
 // const Register = ({ token, setToken, user, setUser }) => {
 //     const [username, setUsername] = useState("");
