@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { registerUser } from "../../api/index";
 
 
-const Register = () => {
+const Register = ({setToken}) => {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -14,9 +14,10 @@ const Register = () => {
                 e.preventDefault();
             console.log("username & password: ", username, password)
 
-            const data = await registerUser(username, password)
-            localStorage.setItem("token", data)
-            console.log("localStorage", localStorage.getItem("token"));    /////THIS PART TIES TO THE TOKEN QUESTION FROM REGISTER USER COMPONENT in index.js///
+            const token = await registerUser(username, password)
+            setToken(token)
+            localStorage.setItem("token", token)
+            console.log("localStorage", localStorage.getItem("token"));    
         } catch (error) {
                 console.error(error);
             }

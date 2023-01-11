@@ -12,7 +12,7 @@ export const registerUser = async (username, password) => {
                 password
             })
         });
-        const { token } = await response.json();//////////ASK ABOUT TOKEN, GET TOKEN BUT DONT SEE DATA, CANNOT DECONSTRUCT//
+        const { token } = await response.json();
         console.log("my response data:", token);
         // return data;
         // const {
