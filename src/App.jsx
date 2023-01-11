@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 // import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Navbar from "./components/NavBar";
-import AllRoutes from "./components/Routes";
 import { getMe } from "./api";
 import Register from "./components/User/Register";
+import Login from "./components/User/Login";
 
 
 
@@ -31,7 +31,8 @@ function App() {
     <div className="App">
       <h1>Fitness Tracker</h1>
       <Navbar />
-      <Register />
+      <Register setToken={setToken} />
+      <Login setToken={setToken} />
     </div>
   );
 }

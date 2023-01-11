@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { loginUser } from "../../api";
 
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("")
-    const location = useLocation();
+    // const location = useLocation();
 
     return (
         <form className="user" onSubmit={async (e) => {
