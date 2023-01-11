@@ -15,8 +15,8 @@ const Register = () => {
             console.log("username & password: ", username, password)
 
             const data = await registerUser(username, password)
-            localStorage.setItem("data", data)
-            console.log("localStorage", localStorage.getItem(data));    /////THIS PART TIES TO THE TOKEN QUESTION FROM REGISTER USER COMPONENT in index.js///
+            localStorage.setItem("token", data)
+            console.log("localStorage", localStorage.getItem("token"));    /////THIS PART TIES TO THE TOKEN QUESTION FROM REGISTER USER COMPONENT in index.js///
         } catch (error) {
                 console.error(error);
             }

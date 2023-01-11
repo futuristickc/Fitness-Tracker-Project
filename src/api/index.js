@@ -12,13 +12,13 @@ export const registerUser = async (username, password) => {
                 password
             })
         });
-        const { data } = await response.json();//////////ASK ABOUT TOKEN, GET TOKEN BUT DONT SEE DATA, CANNOT DECONSTRUCT//
-        console.log("my response data:", data);
+        const { token } = await response.json();//////////ASK ABOUT TOKEN, GET TOKEN BUT DONT SEE DATA, CANNOT DECONSTRUCT//
+        console.log("my response data:", token);
         // return data;
         // const {
         //   data: { token },
         // } = await response.json();
-        // return token;
+        return token;
     } catch (error) {
         console.error(error);
     }
