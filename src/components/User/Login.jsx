@@ -6,7 +6,7 @@ import { loginUser } from "../../api";
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("")
-    // const location = useLocation();
+    // const token = props();
 
     return (
         <form className="user" onSubmit={async (e) => {

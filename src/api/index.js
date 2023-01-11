@@ -62,23 +62,62 @@ export const getMe = async (token) => {
 }
 
 
-export const fetchRoutines = async () => {
-    const token = localStorage.getItem("token"); // Add token
-    const response = await fetch(`${APIURL}/api/routines/`, {
-        // Add token to request
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    const routines = await response.json();
-    console.log(routines);
-    return routines;
+export const getPublicRoutines = async () => {
+    try {
+        const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/routines');
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+    // const token = localStorage.getItem("token"); // Add token
 };
 
 export const Logout = () => {
     localStorage.clear();
     return data;
 };
+
+
+
+// export const getPublicRoutines = async () => {
+//     await fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
+//     headers: {
+//     'Content-Type': 'application/json',
+//     },
+//     })
+//     .then(response => response.json())
+//     .then(result => {
+//     result(routine => routine.isPublic === true);
+//     })
+//     .catch(console.error);
+//     }
+    
+
+    
+    // or
+    
+    // const getPublicRoutines = async () => {
+    // try {
+    // const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
+    // headers: {
+    // 'Content-Type': 'application/json',
+    // },
+    // });
+    // const result = await response.json();
+    // const publicRoutines = result.filter(routine => routine.isPublic === true);
+    // return publicRoutines;
+    // } catch (error) {
+    // console.error(error);
+    // }
+    // }
+    
+    // const routines = getPublicRoutines();
+    // console.log(routines);
+    // routines.then(routineData => {
+    // console.log(routineData);
+    // });
 
 
 
