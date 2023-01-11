@@ -9,9 +9,6 @@ const NavBar = () => {
         <NavLink className="navlink" to="/">
           Home
         </NavLink>
-        <NavLink className="navlink" to="/routines">
-          Routines
-        </NavLink>
         <NavLink className="navlink" to="/myroutines">
           My Routines
         </NavLink>

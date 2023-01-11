@@ -12,13 +12,9 @@ export const registerUser = async (username, password) => {
                 password
             })
         });
-        const { token } = await response.json();
-        console.log("my response data:", token);
-        // return data;
-        // const {
-        //   data: { token },
-        // } = await response.json();
-        return token;
+        const data  = await response.json();
+        console.log("my response data:", data);
+        return data;
     } catch (error) {
         console.error(error);
     }
@@ -32,13 +28,13 @@ export const loginUser = async (username, password) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                user: {
                     username,
                     password,
-                },
+                
             }),
         });
         const data = await verify.json();
+        console.log(data)
         return data;
     } catch (error) {
         console.error(error);
@@ -71,7 +67,6 @@ export const getPublicRoutines = async () => {
     } catch (error) {
         console.error(error);
     }
-    // const token = localStorage.getItem("token"); // Add token
 };
 
 export const Logout = () => {
@@ -81,51 +76,11 @@ export const Logout = () => {
 
 
 
-// export const getPublicRoutines = async () => {
-//     await fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
-//     headers: {
-//     'Content-Type': 'application/json',
-//     },
-//     })
-//     .then(response => response.json())
-//     .then(result => {
-//     result(routine => routine.isPublic === true);
-//     })
-//     .catch(console.error);
-//     }
-    
-
-    
-    // or
-    
-    // const getPublicRoutines = async () => {
-    // try {
-    // const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
-    // headers: {
-    // 'Content-Type': 'application/json',
-    // },
-    // });
-    // const result = await response.json();
-    // const publicRoutines = result.filter(routine => routine.isPublic === true);
-    // return publicRoutines;
-    // } catch (error) {
-    // console.error(error);
-    // }
-    // }
-    
-    // const routines = getPublicRoutines();
-    // console.log(routines);
-    // routines.then(routineData => {
-    // console.log(routineData);
-    // });
-
-
-
 
 
 export async function getActivities() {
     try {
-        const response = await fetch(`${API_URL}/activities`, {
+        const response = await fetch(`${APIURL}/activities`, {
             headers: {
                 "Content-Type": "application/json",
             },

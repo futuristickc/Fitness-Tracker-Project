@@ -14,9 +14,10 @@ const Register = ({setToken}) => {
                 e.preventDefault();
             console.log("username & password: ", username, password)
 
-            const token = await registerUser(username, password)
-            setToken(token)
-            localStorage.setItem("token", token)
+            const data = await registerUser(username, password)
+            console.log(data.token)
+            setToken(data.token)
+            localStorage.setItem("token", data.token)
             console.log("localStorage", localStorage.getItem("token"));    
         } catch (error) {
                 console.error(error);
