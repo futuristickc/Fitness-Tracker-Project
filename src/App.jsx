@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import Navbar from "./components/NavBar";
 import { getMe, Logout } from "./api";
 import Register from "./components/User/Register";
-import Login from "./components/User/Login";
+import {Login} from "./components/User/Login";
 import Routines from "./components/Routines";
 import Activities from "./components/Activities";
 import MyRoutines from "./components/User/MyRoutines";
@@ -36,7 +36,7 @@ function App() {
 
   return (
     <div>
-      <Navbar  loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+      <Navbar  setToken={setToken} user={user}/>
       <Routes>
         <Route
           exact

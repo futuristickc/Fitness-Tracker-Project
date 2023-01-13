@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../api";
 
 
-const Login = ({token, setToken}) => {
+export const Login = ({token, setToken}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("")
     const navigate = useNavigate
@@ -43,7 +43,12 @@ const Login = ({token, setToken}) => {
 };
 
 
+export const checkUserLoggedIn = () => {
+    const token = localStorage.getItem('token');
+    return token ? true : false;
+  }
+
 
 //
 
-export default Login;
+// export default Login;
