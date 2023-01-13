@@ -51,7 +51,7 @@ function App() {
         element={
           <Register token={token} setToken={setToken} user={user} setUser={setUser}/>} />
       <Route path="/activities" element={<Activities activities={activities} setActivities={setActivities} />}/>
-      <Route path="/myroutines" element={<MyRoutines myRoutines={myRoutines} setMyRoutines={setMyRoutines}/>}/>
+      <Route path="/myroutines" element={<MyRoutines myRoutines={myRoutines} setMyRoutines={setMyRoutines} routines={routines} setRoutines={setRoutines}/>}/>
     </Routes>
     </div>
   );

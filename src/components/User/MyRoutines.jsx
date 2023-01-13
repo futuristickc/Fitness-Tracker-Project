@@ -1,61 +1,46 @@
 import React, { useEffect, useState } from "react";
-import {getMe, getUserRoutines, deleteRoutine} from "../../api"
+import { getPublicRoutines, addRoutine, getUserRoutines, getMe } from "../../api";
+import CreateRoutine from "./CreateRoutine";
 
-function userRoutines({ isLoggedIn }) {
-    const [userRoutines, setUserRoutines] = useState([]);
-    const token = localStorage.getItem('userToken');
 
+const MyRoutines = ({routines, setRoutines, myRoutines, setMyRoutines}) => {
+    // const [routines, setRoutines] = useState([]);
     useEffect(() => {
-        async function fetchData() {
-            if (isLoggedIn) {
-                const user = await getMe(token);
-                setUserRoutines(await getUserRoutines(user.username, token))
-            }
+        const fetchData = async () => {
+        const user = await getMe(token);
+                setRoutines(await getUserRoutines(user.username, token))
+
+            // const { data: { routines }, } = await response;
+            setRoutines(data);
+            console.log(data)
         }
         fetchData();
-    }, [isLoggedIn, token]);
+    }, []);
 
-    async function handleDelete(id) {
-        const deletedRoutine = await deleteRoutine(id, token);
-        const removedRoutine = userRoutines.filter(x => x.id !== deletedRoutine.id);
-        setUserRoutines(removedRoutine);
-    }
+    const addRoutine = routines.filter(
+        (routine) => routine.id !== routineId
+      );
+      setMyRoutines(addRoutine);
+    
+  let routinesToMap = routines.map((routine, index) => {
+    if (user.id === routine.creatorId) {
+    
+    return (
+        <>
+        <CreateRoutine/>
+                        return (
+                            <div key={routine.id}>
+                            <h2>Routines</h2>
+                            <div>{routinesToMap}</div>
+                            </div>
 
-    const userRoutinesHtml = userRoutines?.map((routine) =>
-        <div key={routine.id} className="info">
-            <h2>{routine.name} <a href="#" onClick={() => handleDelete(routine.id)}>X</a></h2>
-            <p>By <b>{routine.creatorName}</b></p>
-            <p>{routine.goal}</p>
-            <p><i>This routine is {routine.isPublic} public if true</i></p>
-            {routine.activities?.map((activity) => {
-                return (
-                    <div key={activity.id} className="info">
-                        <h4>{activity.name} ({activity.count} reps/{activity.duration} minutes)</h4>
-                        <p>{activity.description}</p>
-                    </div>
-                );
-            })}
-        </div>
+                        );
+                    
+                
+        </>
     );
-
-    if (userRoutines.length === 0) {
-        return (
-            <div>
-                <h1>My Routines</h1>
-                <span>Looks like you don't have any routines yet!</span>
-            </div>
-        );
-    }
-    else {
-        return (
-            <div>
-                <h1>My Routines</h1>
-                {userRoutinesHtml}
-            </div>
-        );
-    }
-}
-
-
-export default userRoutines;
+                }});
+            
+};
+export default MyRoutines;
  
