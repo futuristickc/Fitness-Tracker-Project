@@ -2,7 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 
-const NavBar = () => {
+const NavBar = (loggedIn, setLoggedIn) => {
+  
   return (
     <>
       <nav>
@@ -21,7 +22,9 @@ const NavBar = () => {
         <NavLink className="navlink" to="/register">
           Register
         </NavLink>
-
+        <NavLink className="navlink" to="/create-routine">
+          Create Routine
+        </NavLink>
       </nav>
     </>
   );
