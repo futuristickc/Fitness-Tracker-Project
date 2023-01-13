@@ -5,17 +5,16 @@ import "./NavBar.css";
 
 
 const NavBar = ({setToken, user}) => {
-  const username = user?.data?.username
-  console.log(username);
+  const username = user?.data?.username 
     const location = useLocation();
     return (
         <header className="header">
             <NavLink to="/" className="logo">
-            <div id="stranger">Fitness Tracker</div>
+            <div id="fitness">Fitness Tracker</div>
         </NavLink>
         <br/>
       {checkUserLoggedIn() ?
-        <div>
+        <div className="tabs">
             <b className="welcome">Welcome, {username}!</b>
             <br/><hr/>
             <NavLink className="navlink" to="/">
@@ -37,7 +36,7 @@ const NavBar = ({setToken, user}) => {
           }}>Logout</button>
         </div>
         :
-        <div>
+        <div className="tabs">
         <NavLink className="navlink" to="/">
           Home
         </NavLink>

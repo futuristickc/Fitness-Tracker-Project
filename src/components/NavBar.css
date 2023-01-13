@@ -29,3 +29,13 @@ nav {
     top: 0;
     position: absolute;
 }
+
+#fitness {
+    font-size: 70px;
+}
+
+.tabs {
+    display: flex;
+    flex-direction: row;
+}
+

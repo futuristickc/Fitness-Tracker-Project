@@ -30,6 +30,8 @@
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
+    background-image: url("https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg");
+    background-size: contain;
   }
   
   h1 {
@@ -58,8 +60,9 @@
   
   @media (prefers-color-scheme: light) {
     :root {
-      color: #213547;
+      color: yellow;
       background-color: #ffffff;
+      font-weight: bolder;
     }
     a:hover {
       color: #747bff;
