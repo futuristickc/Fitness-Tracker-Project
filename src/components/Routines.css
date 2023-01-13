@@ -1,23 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 
-.posts {
-    padding: 1em;
-    font-family: 'Libre Baskerville', serif;
-    background-color: grey;
-    border-radius: 10%;
-  }
-  
-.posts h2 {
-    margin-bottom: .5em;
-    padding-bottom: .5em;
-    border-bottom: 1px solid grey;
-  }
- 
-.posts {
-    margin-bottom: 1em;
-    max-width: 40em;
-  }
+.Routines {
+  border: 1px solid #f0ebeb;
+  margin-top: 1em;
+  padding: 1em;
+}
 
-  form {
-    max-width: 50vw;
-  }
+.Container {
+  display: flex;
+  justify-content: center;
+}
+

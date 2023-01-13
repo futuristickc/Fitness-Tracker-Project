@@ -2,8 +2,15 @@ import React, {useEffect} from "react";
 import { getActivities, addActivity } from "../api/index";
 
 
-const Activities = ({ loggedIn, activities, setActivities, nameInput, setNameInput, descriptionInput, setDescriptionInput,
-  }) => { useEffect(() => { getActivities().then((results) => {
+const Activities = ({ 
+  loggedIn, 
+  activities, 
+  setActivities, 
+  nameInput, 
+  setNameInput, 
+  descriptionInput, 
+  setDescriptionInput, }) => { 
+    useEffect(() => { getActivities().then((results) => {
         setActivities(results);
       });
     }, [activities]);

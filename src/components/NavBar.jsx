@@ -21,6 +21,7 @@ const NavBar = () => {
         <NavLink className="navlink" to="/register">
           Register
         </NavLink>
+
       </nav>
     </>
   );

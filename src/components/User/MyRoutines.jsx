@@ -1,38 +1,61 @@
 import React, { useEffect, useState } from "react";
-import { getPublicRoutines } from "../../api";
+import {getMe, getUserRoutines, deleteRoutine} from "../../api"
 
+function userRoutines({ isLoggedIn }) {
+    const [userRoutines, setUserRoutines] = useState([]);
+    const token = localStorage.getItem('userToken');
 
-
-const MyRoutines = () => {
-    const [routines, setRoutines] = useState([]);
     useEffect(() => {
-        const getRoutines = async () => {
-            const data = await getPublicRoutines();
-            // const { data: { routines }, } = await response;
-            setRoutines(data);
-            console.log(data)
+        async function fetchData() {
+            if (isLoggedIn) {
+                const user = await getMe(token);
+                setUserRoutines(await getUserRoutines(user.username, token))
+            }
         }
-        getRoutines();
-    }, []);
-    let hasRoutine = false;
-    routines.forEach((routine) => {
-        if (routines.creatorId) {
-            hasRoutine = true;
-        }
-    })
-    return (
-        <>
-            {hasRoutine ? (
-                routines.map((routine) => {
-                    if (routines.creatorId) {
-                        return <SingleRoutine routine={routine} routines={routines} setRoutines={setRoutines} creatorId={routine.creatorId} key={routine._id} />;
-                    }
-                })
-            ) : (
-                <p>You haven't posted anything yet!</p>
-            )}
+        fetchData();
+    }, [isLoggedIn, token]);
 
-        </>
+    async function handleDelete(id) {
+        const deletedRoutine = await deleteRoutine(id, token);
+        const removedRoutine = userRoutines.filter(x => x.id !== deletedRoutine.id);
+        setUserRoutines(removedRoutine);
+    }
+
+    const userRoutinesHtml = userRoutines?.map((routine) =>
+        <div key={routine.id} className="info">
+            <h2>{routine.name} <a href="#" onClick={() => handleDelete(routine.id)}>X</a></h2>
+            <p>By <b>{routine.creatorName}</b></p>
+            <p>{routine.goal}</p>
+            <p><i>This routine is {routine.isPublic} public if true</i></p>
+            {routine.activities?.map((activity) => {
+                return (
+                    <div key={activity.id} className="info">
+                        <h4>{activity.name} ({activity.count} reps/{activity.duration} minutes)</h4>
+                        <p>{activity.description}</p>
+                    </div>
+                );
+            })}
+        </div>
     );
-};
-export default MyRoutines; 
+
+    if (userRoutines.length === 0) {
+        return (
+            <div>
+                <h1>My Routines</h1>
+                <span>Looks like you don't have any routines yet!</span>
+            </div>
+        );
+    }
+    else {
+        return (
+            <div>
+                <h1>My Routines</h1>
+                {userRoutinesHtml}
+            </div>
+        );
+    }
+}
+
+
+export default userRoutines;
+ 

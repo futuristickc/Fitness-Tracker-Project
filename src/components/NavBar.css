@@ -12,7 +12,7 @@
 }
 
 .navlink:hover {
-    border-color: #e41a1aa5;
+    background-color: #e41a1aa5;
 }
 
 .navlink:focus,

@@ -62,12 +62,70 @@ export const getPublicRoutines = async () => {
     try {
         const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/routines');
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         return data;
     } catch (error) {
         console.error(error);
     }
 };
+
+
+export const addRoutine = async (name, goal, isPublic, ) => {
+    const token = localStorage.getItem("token")
+    try {
+        const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                name,
+                goal,
+                isPublic,
+              }),
+        }); 
+        const result = await response.json();
+        console.log("whyyyyyyyyyyyyy", result)
+        return result
+    } catch (error) {
+        throw error
+    }
+}
+
+
+export async function getUserRoutines() {
+    try{
+      const response = await fetch(`${APIURL}/users/${username}/routines`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+      return await response.json();
+  }catch (error) {
+    throw error
+  }}
+
+
+  export async function deleteRoutine(id, token) {
+    const response = await fetch(`${baseUrl}/routines/${id}/`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    return await response.json();
+}
+
+
+
+
+
+
+
 
 export const Logout = () => {
     localStorage.clear();

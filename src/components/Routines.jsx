@@ -2,39 +2,31 @@ import { de } from "faker/lib/locales";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPublicRoutines } from "../api";
+import "./Routines.css"
+
 
 const Routines = ({ routines, setRoutines}) => {
-
 
   useEffect(() => {
    const getRoutines = async () => {
     const data = await getPublicRoutines()
-
     setRoutines(data)
    }
    getRoutines()
   }, []);
   return (
-    <div id="RoutineBox">
-    <h1 className="PageHeader" id="ProfileHeader">
-      Routines
-    </h1>
-
+    <div id="Routines">
+    <h1> Routines </h1>
     <div className="Container">
-      <div className="centerBox">
-        {routines?.length ? (
-          routines?.map((element) => {
+        {routines?.length ? (routines?.map((element) => {
             const { id, name, isPublic, goal, creatorName, activities } =
-              element;
-            if (isPublic) {
+              element; if (isPublic) {
               return (
                 <div className="Routines" key={id}>
                   <h2 id="Name">{name}</h2>
                   <p id="Goal">Goal: {goal}</p>
                   <p id="creatorName">Creator Name: {creatorName}</p>
-
-                  <div className="activityBox">
-                    {activities.map(
+                  <div> {activities.map(
                       ({ id, name, description, count, duration }) => {
                         return (
                           <div key={id} className="Activity">
@@ -43,18 +35,15 @@ const Routines = ({ routines, setRoutines}) => {
                             <p id="Count">Count: {count}</p>
                             <p id="Duration">Duration: {duration}</p>
                           </div>
-                        );
-                      }
+                        );}
                     )}
                   </div>
                 </div>
-              );
-            }
+              );}
           })
         ) : (
-          <div> Loading your routines... </div>
+          <div> Loading... </div>
         )}
-      </div>
     </div>
   </div>
   );
