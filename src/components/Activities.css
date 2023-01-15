@@ -1,4 +1,4 @@
-#Routines {
+#addActivity {
   text-align: center;
   margin: 50px;
   width: 150px;
@@ -6,7 +6,7 @@
   justify-content: center;
 }
 
-#Routines h1 {
+#LoggedInToWelcomeToActivities h1 {
   font-size: 3rem;
   margin-bottom: 50px;
 }
@@ -15,11 +15,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 1200px;
+  align-items: center;
 }
 
-.Routines {
-  background-color: #010101;
+.AddForm {
+  background-color: #c32222;
   margin: 30px auto;
   padding: 30px;
   border-radius: 20px;
@@ -28,21 +28,17 @@
   overflow: auto;
 }
 
-#Name {
+#AddName {
   font-size: 1.5rem;
   margin-bottom: 10px;
 }
 
-#Goal {
+#AddDescription,
+#AddButton{
   margin-bottom: 10px;
-  font-style: italic;
 }
 
-#creatorName {
-  margin-bottom: 20px;
-}
-
-.Activity {
+.activityBox {
   margin-top: 10px;
   padding-left: 20px;
   border-left: 5px solid #ccc;
@@ -53,8 +49,6 @@
   margin-bottom: 5px;
 }
 
-#Description,
-#Count,
-#Duration {
+#Description {
   margin-bottom: 5px;
 }

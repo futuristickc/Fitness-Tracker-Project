@@ -131,6 +131,8 @@ export const Logout = () => {
   localStorage.clear();
 };
 
+// Activities start here
+
 export async function getActivities() {
   try {
     const response = await fetch(`${APIURL}/activities`, {
@@ -145,21 +147,42 @@ export async function getActivities() {
   }
 }
 
-export async function addActivity(token, nameInput, descriptionInput) {
+// export async function addActivity(token, nameInput, descriptionInput) {
+//   try {
+//     const response = await fetch(`${APIURL}/activities/`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: JSON.stringify({
+//         name,
+//         description,
+//     });
+//     const result = await response.json();
+//     return result;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
+
+
+
+export const addActivity = async (name, description) => {
+  const token = localStorage.getItem("token");
   try {
-    const response = await fetch(`${APIURL}/activities/`, {
+    const response = await fetch( "https://fitnesstrac-kr.herokuapp.com/api/activities", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        name: nameInput,
-        description: descriptionInput,
+        name,
+        description,
       }),
-    });
-    const result = await response.json();
-    return result;
+    }
+    );
   } catch (error) {
     throw error;
   }

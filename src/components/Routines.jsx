@@ -5,6 +5,7 @@ import { getPublicRoutines } from "../api";
 import "./Routines.css"
 
 
+
 const Routines = ({ routines, setRoutines}) => {
 
   useEffect(() => {

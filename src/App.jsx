@@ -3,13 +3,14 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
 import Navbar from "./components/NavBar";
-import { getMe, Logout } from "./api";
+import { addActivity, getMe, Logout } from "./api";
 import Register from "./components/User/Register";
 import {Login} from "./components/User/Login";
 import Routines from "./components/Routines";
 import Activities from "./components/Activities";
 import MyRoutines from "./components/User/MyRoutines";
 import CreateRoutine from "./components/User/CreateRoutine";
+import CreateActivity from "./components/User/AddActivity";
 import { addRoutine } from "./api";
 
 function App() {
@@ -18,9 +19,11 @@ function App() {
   const [user, setUser] = useState({});
   const [routines, setRoutines] = useState([]);
   const [activities, setActivities] = useState([]);
+  const [addActivity, setAddActivity] = useState([]);
   const [myRoutines, setMyRoutines] = useState([]);
   const [addRoutine, setAddRoutine] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     //   if (Object.keys(user).length === 0) {
@@ -36,12 +39,19 @@ function App() {
 
   return (
     <div>
-      <Navbar  setToken={setToken} user={user}/>
+      <Navbar 
+      setToken={setToken} 
+      user={user}
+      />
       <Routes>
         <Route
           exact
           path="/"
-          element={<Routines routines={routines} setRoutines={setRoutines} />}
+          element={
+          <Routines 
+          routines={routines} 
+          setRoutines={setRoutines} 
+          />}
         />
 
         <Route
@@ -74,9 +84,20 @@ function App() {
         <Route
           path="/activities"
           element={
-            <Activities activities={activities} setActivities={setActivities} />
+            <Activities 
+            activities={activities} 
+            setActivities={setActivities} />
           }
         />
+
+          <Route 
+          path="/create-activity"
+          element={
+          <CreateActivity 
+          addActivity={addActivity} 
+          setAddActivity={setAddActivity}/>}
+          />
+
         <Route
           path="/myroutines"
           element={
@@ -95,6 +116,7 @@ function App() {
             <CreateRoutine
               addRoutine={addRoutine}
               setAddRoutine={setAddRoutine}
+              setRoutines={setRoutines}
             />
           }
         />

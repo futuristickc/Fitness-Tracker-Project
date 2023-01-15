@@ -1,26 +1,6 @@
 import React, { useEffect } from "react";
 import { getActivities, addActivity } from "../api/index";
-
-
-
-
-// const Activities =({loggedIn,
-// activities,
-// setActivites }) => {
-
-//   useEffect(() => {
-//     const getActivities().then((results) => {
-//       setActivites(results);
-//     });
-//   }, [activities])
-// }
-
-
-
-
-
-
-
+import "./Activities.css";
 
 const Activities = ({
   loggedIn,
@@ -35,25 +15,27 @@ const Activities = ({
     getActivities().then((results) => {
       setActivities(results);
     });
-  }, [activities]);
+  }, []); 
 
   const token = localStorage.getItem("token");
   async function handleSubmit(event) {
     event.preventDefault();
     const result = await addActivity(token, nameInput, descriptionInput);
-    await getActivities();
     if (result.error) {
       alert(result.error);
     } else {
-      setActivities(result);
-      setNameInput("");
-      setDescriptionInput("");
+      getActivities().then((results) => {
+        
+        setActivities(results);
+        setNameInput("");
+        setDescriptionInput("");
+      });
     }
   }
 
   if (loggedIn) {
     return (
-      <div key={activity.id}>
+      <div>
         <div>
           <div className="addActivity">
             <h1 id="LoggedInToWelcomeToActivities">Activities</h1>
@@ -85,12 +67,11 @@ const Activities = ({
             </form>
           </div>
           <div className="activityBox">
-            {activities.length ? (
+            {activities?.length ? (
               activities.map((element) => {
                 const { id, name, description } = element;
-                const activityId = id;
                 return (
-                  <div key={activityId} className="Activity">
+                  <div key={id} className="Activity">
                     <h4 id="activityName">{name}</h4>
                     <p id="Description">Description: {description}</p>
                   </div>
@@ -111,9 +92,8 @@ const Activities = ({
           {activities?.length ? (
             activities.map((element) => {
               const { id, name, description } = element;
-              const activityId = id;
               return (
-                <div key={activityId} className="Activity">
+                <div key={id} className="Activity">
                   <h4 id="activityName">{name}</h4>
                   <p id="Description">Description: {description}</p>
                 </div>

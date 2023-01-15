@@ -5,16 +5,17 @@ import "./NavBar.css";
 
 
 const NavBar = ({setToken, user}) => {
-  const username = user?.data?.username 
+  const username = user?.data?.username
+  // console.log(username);
     const location = useLocation();
     return (
         <header className="header">
             <NavLink to="/" className="logo">
-            <div id="fitness">Fitness Tracker</div>
+            <div id="stranger">Fitness Tracker</div>
         </NavLink>
         <br/>
       {checkUserLoggedIn() ?
-        <div className="tabs">
+        <div>
             <b className="welcome">Welcome, {username}!</b>
             <br/><hr/>
             <NavLink className="navlink" to="/">
@@ -23,11 +24,14 @@ const NavBar = ({setToken, user}) => {
         <NavLink className="navlink" to="/myroutines">
           My Routines
         </NavLink>
+        <NavLink className="navlink" to="/create-routine">
+          Create Routine
+        </NavLink>
         <NavLink className="navlink" to="/activities">
           Activities
         </NavLink>
-        <NavLink className="navlink" to="/create-routine">
-          Create Routine
+        <NavLink className="navlink" to="create-activity">
+          Create New Activity
         </NavLink>
           <button type="button" className="header-button logout" onClick={() => {
             localStorage.removeItem('token');
@@ -36,7 +40,7 @@ const NavBar = ({setToken, user}) => {
           }}>Logout</button>
         </div>
         :
-        <div className="tabs">
+        <div>
         <NavLink className="navlink" to="/">
           Home
         </NavLink>
